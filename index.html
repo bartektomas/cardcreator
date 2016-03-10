@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="js/fabric.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <!-- Navbar goes here -->
+    </header>
+
+    <content>
+        <div class="row">
+            <div class="col s4">
+                <h1>Welcome</h1>
+                <div class="divider"></div>
+                <div class="input-field">
+                    <input type="text" id="name">
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-field">
+                    <input type="text" id="team">
+                    <label for="team">Team Name</label>
+                </div>
+                <div class="divider"></div>
+                <p>
+                    <input type="checkbox" checked="checked" id="test5">
+                    <label for="test5">Show Name</label>
+                </p>
+                <p>
+                    <input type="checkbox" checked="checked" id="test6">
+                    <label for="test6">Show Team Name</label>
+                </p>
+                <div class="divider"></div>
+                <p>
+                    <h3>Border</h3>
+                    <p class="range-field">
+                        <input type="range" id="border-width-slider" min="0" max="50" value="5" step="1">
+                    </p>
+                    <input type="color" id="border-color" value="#db577a">
+                </p>
+
+
+            </div>
+            <div class="col s8">
+                <h1>Preview</h1>
+                <div class="preview-container">
+                    <canvas id="c" width="250px" height="350px"></canvas>
+                    <script>
+                        (function () {
+                            var canvasWidth = document.getElementById('c').width;
+                            var canvasHeight = document.getElementById('c').height;
+                            var borderWidth = document.getElementById('border-width-slider').value;
+                            var borderColor = document.getElementById('border-color').value;
+                            var canvas = new fabric.Canvas('c');
+
+                            // Create Rect
+                            var rect = new fabric.Rect({
+                                top: 0,
+                                left: 0,
+                                fill: 'white',
+                                width: canvasWidth - borderWidth,
+                                height: canvasHeight - borderWidth,
+                                strokeWidth: borderWidth,
+                                stroke: borderColor
+                            });
+
+
+                            //Add Rect to canvas
+                            canvas.add(rect);
+
+
+                            // Slider change
+                            var borderWidthControl = document.getElementById('border-width-slider');
+                            borderWidthControl.onchange = function () {
+                                rect.setStrokeWidth(parseInt(this.value)).setCoords();
+                                rect.center();
+                                canvas.renderAll();
+                            };
+
+                            // Color change
+                            var borderColorControl = document.getElementById('border-color');
+                            borderColorControl.onchange = function () {
+                                rect.setStroke(this.value);
+                                canvas.renderAll();
+                            };
+
+                        })();
+                    </script>
+                </div>
+            </div>
+        </div>
+    </content>
+
+
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+</body>
+
+</html>
